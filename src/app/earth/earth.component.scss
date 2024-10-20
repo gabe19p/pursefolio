@@ -1,0 +1,69 @@
+// font-family: "Barrio", system-ui;
+// font-family: "Rubik Spray Paint", system-ui;
+
+.main-container {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+}
+
+canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 1;
+}
+
+.actions-bottom-wrapper {
+  font-family: "Londrina Outline", sans-serif;
+  font-size: 24px;
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  background-color: transparent;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 5;
+  width: 100%;
+  /* fade the actions bar in */
+  opacity: 0;
+  transition: opacity 3s ease-in;
+}
+
+/* Class to apply when visible */
+.fade-in {
+  opacity: 1; /* Fully visible */
+}
+
+.categories-wrapper {
+  width: 80%;
+  display: flex;
+}
+
+.links-wrapper {
+  display: flex;
+}
+
+path {
+  fill: white;
+}
+
+.link {
+  width: 25px;
+  height: 25px;
+  margin: 10px;
+  transition: transform 200ms ease-in-out;
+}
+
+.category {
+  height: 25px;
+  margin: 10px;
+  cursor: pointer;
+  transition: transform 200ms ease-in-out;
+}
+
+.category:hover,
+.link:hover {
+  transform: scale(1.1);
+}

@@ -1,0 +1,100 @@
+.dialog-wrapper {
+  background-color: black;
+  color: white;
+  font-family: "Poiret One", sans-serif !important;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 30px;
+  max-width: 450px;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.actions {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.header-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.date-wrapper {
+  align-self: flex-end;
+}
+
+.job-title {
+  font-size: 32px;
+  word-spacing: 500px;
+  line-height: 1.01;
+}
+
+.job-dates {
+  font-size: 14px;
+}
+
+.job-company {
+  font-size: 14px;
+}
+
+.job-location {
+  font-size: 14px;
+}
+
+.job-duty {
+  font-size: 18px;
+  font-family: "Outfit", sans-serif;
+}
+
+.job-duty-detail {
+  font-size: 14px;
+  font-family: "Outfit", sans-serif;
+  font-weight: 200;
+}
+
+ul {
+  margin: 0;
+  font-family: "Outfit", sans-serif;
+  font-weight: 200;
+}
+
+/* Styles for the background image */
+.background-image {
+  position: absolute; /* Position the image absolutely within the dialog */
+  top: 50%; /* Center the image vertically */
+  left: 50%; /* Center the image horizontally */
+  width: 100%; /* Make the image cover the dialog */
+  height: 100%; /* Make the image cover the dialog */
+  object-fit: cover; /* Ensure the image covers without distorting */
+  opacity: 0.08; /* Set the opacity to 5% */
+  transform: translate(
+    -50%,
+    -50%
+  ); /* Center the image by adjusting its position */
+  z-index: 0; /* Make sure it's behind the content */
+}
+
+button {
+  color: white !important;
+  font-family: "Poiret One", sans-serif !important;
+  white-space: nowrap !important;
+  height: 30px;
+}
+
+.skill-title {
+  text-align: center;
+  width: 100%;
+  font-family: "Poiret One", sans-serif !important;
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.skill-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 10px 0;
+}
