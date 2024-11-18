@@ -13,6 +13,8 @@ import { PinDialogComponent } from '../pin-dialog/pin-dialog.component';
 import { WorkInfo } from '../models/work-info';
 import { locations } from '../data/locations';
 import { EducationComponent } from '../education/education.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
   selector: 'app-earth',
@@ -38,18 +40,20 @@ export class EarthComponent implements OnInit, AfterViewInit {
   private dialogOpen: boolean = false; // Flag to track dialog state
 
   // Zoom on-load parameters
-  private zoomDuration: number = 5; // Duration in seconds
+  private zoomDuration: number = 3; // Duration in seconds
   private startTime: number | null = null; // To track the start time of the zoom
-  private initialCameraZ: number = 25; // Starting z position
+  private initialCameraZ: number = 5; // Starting z position
   private targetCameraZ: number = 2; // Target z position (close to Earth)
 
   isVisible = false;
+  isHidden = false; // used for the all black cover div
 
-  constructor(private dialog: MatDialog) {
+  constructor(private dialog: MatDialog, private snackBar: MatSnackBar) {
     this.getStarfield();
     this.getFresnelMat();
   }
 
+  // dialog for the map locations
   openDialog(info: any): void {
     console.log('Opening dialog with info:', info); // Add this line
     if (!this.dialogOpen) {
@@ -68,17 +72,40 @@ export class EarthComponent implements OnInit, AfterViewInit {
       });
     }
   }
-
+  // dialog for the education
   openEducationDialog() {
     if (!this.dialogOpen) {
       // Check if the dialog is not already open
       this.dialogOpen = true; // change because open
-      const dialogRef = this.dialog.open(EducationComponent, {});
+      const dialogRef = this.dialog.open(EducationComponent, {
+        panelClass: 'dialog-wrapper',
+      });
       // Reset dialogOpen to false when the dialog is closed
       dialogRef.afterClosed().subscribe(() => {
         this.dialogOpen = false; // Reset the flag
       });
     }
+  }
+  // snackbar for the resume
+  openSnackBar(): void {
+    const snackBarRef = this.snackBar.open(
+      "Would you like to download Gabe's resume?",
+      'Download',
+      {
+        duration: 10000,
+      }
+    );
+    snackBarRef.onAction().subscribe(() => {
+      this.startDownload(); // Start download when the user clicks 'Download'
+    });
+  }
+  private startDownload(): void {
+    const link = document.createElement('a');
+    link.href = '../../assets/resume.pdf';
+    link.download = 'purselley-resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 
   ngOnInit(): void {
@@ -86,7 +113,7 @@ export class EarthComponent implements OnInit, AfterViewInit {
     // Wait for 5 seconds before showing the element
     setTimeout(() => {
       this.isVisible = true;
-    }, 3000); // 5000 milliseconds = 5 seconds
+    }, 3000);
   }
 
   ngAfterViewInit(): void {
@@ -131,7 +158,7 @@ export class EarthComponent implements OnInit, AfterViewInit {
     // Renderer
     this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
     this.renderer.setSize(window.innerWidth, window.innerHeight);
-    this.renderer.setPixelRatio(window.devicePixelRatio); // Set pixel ratio for high DPI screens
+    this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
     this.renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
 
@@ -151,7 +178,7 @@ export class EarthComponent implements OnInit, AfterViewInit {
     // Area
     // Controls
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-    this.controls.enableDamping = true;
+    this.controls.enableDamping = true; // Enable damping (inertia)
 
     // Earth
     // Group
@@ -170,7 +197,7 @@ export class EarthComponent implements OnInit, AfterViewInit {
     });
     this.earthMesh = new THREE.Mesh(geometry, earthMat);
     this.earthGroup.add(this.earthMesh);
-    // nightime earth
+    // nighttime earth
     const lightsMat = new THREE.MeshBasicMaterial({
       map: loader.load('assets/textures/8081_earthlights10k.jpg'),
       blending: THREE.AdditiveBlending,
@@ -217,33 +244,27 @@ export class EarthComponent implements OnInit, AfterViewInit {
   animate(): void {
     requestAnimationFrame(() => this.animate());
 
-    const currentTime = performance.now(); // Get the current time
+    const currentTime = performance.now();
     if (this.startTime === null) {
-      this.startTime = currentTime; // Initialize start time on the first frame
+      this.startTime = currentTime;
     }
 
-    const elapsedTime = (currentTime - this.startTime) / 1000; // Convert to seconds
+    const elapsedTime = (currentTime - this.startTime) / 1000;
 
-    // Check if the zooming should still be happening
     if (elapsedTime < this.zoomDuration) {
-      // Calculate the new camera position using linear interpolation
       const t = elapsedTime / this.zoomDuration;
       this.camera.position.z =
         this.initialCameraZ + t * (this.targetCameraZ - this.initialCameraZ);
     } else {
-      // After zooming, set the camera position to the target
       this.camera.position.z = this.targetCameraZ;
-
-      // Disable controls after the zoom is complete
-      // this.controls.enabled = false; // Disable controls
       this.controls.minDistance = 2;
       this.controls.maxDistance = 3;
     }
 
-    this.cloudsMesh.rotation.y += -0.001; // negative number to make clouds slower
+    this.cloudsMesh.rotation.y += -0.001;
     this.earthGroup.rotation.y += 0.002;
 
-    // Update controls (no longer needed since controls are disabled)
+    // Ensure controls update is called in the animation loop
     this.controls.update();
 
     this.renderer.render(this.scene, this.camera);
@@ -253,7 +274,7 @@ export class EarthComponent implements OnInit, AfterViewInit {
     this.camera.aspect = window.innerWidth / window.innerHeight;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(window.innerWidth, window.innerHeight);
-    this.renderer.setPixelRatio(window.devicePixelRatio); // Update pixel ratio on resize
+    this.renderer.setPixelRatio(window.devicePixelRatio);
   }
 
   getStarfield({ numStars = 1500 } = {}) {

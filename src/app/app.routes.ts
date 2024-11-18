@@ -6,5 +6,5 @@ import { EducationComponent } from './education/education.component';
 export const routes: Routes = [
   { path: '', redirectTo: '/earth', pathMatch: 'full' },
   { path: 'earth', component: EarthComponent },
-  { path: 'education', component: EducationComponent },
+  // { path: 'education', component: EducationComponent },
 ];

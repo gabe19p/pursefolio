@@ -1,5 +1,26 @@
 // font-family: "Barrio", system-ui;
 // font-family: "Rubik Spray Paint", system-ui;
+.cover-page {
+  background-color: black;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  position: absolute;
+  opacity: 1; /* Fully visible by default */
+  visibility: visible; /* Visible by default */
+  animation: hideCover 5s forwards; /* Fade-out transition */
+}
+
+@keyframes hideCover {
+  0% {
+    opacity: 1; /* Fully visible */
+    visibility: visible; /* Visible by default */
+  }
+  100% {
+    opacity: 0; /* Fully transparent */
+    visibility: hidden; /* Hide the element to enable clicking */
+  }
+}
 
 .main-container {
   position: relative;
@@ -28,7 +49,7 @@ canvas {
   width: 100%;
   /* fade the actions bar in */
   opacity: 0;
-  transition: opacity 3s ease-in;
+  transition: opacity 3s ease-in-out;
 }
 
 /* Class to apply when visible */
