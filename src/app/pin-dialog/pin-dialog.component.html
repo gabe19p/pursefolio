@@ -18,15 +18,38 @@
   </div>
   <br />
   <!-- job details & duties -->
+  <div>{{ data.info.jobDescription }}</div>
+  <br />
   <div class="job-details-wrapper" *ngFor="let detail of data.info.jobDetails">
-    <div class="job-duty">- {{ detail.jobDuty }}</div>
-    <ul>
-      <li *ngFor="let item of detail.jobDetails">{{ item }}</li>
-    </ul>
+    <div class="job-duty">+ {{ detail.jobDuty }}</div>
+    <ng-container
+      *ngIf="isExpanded"
+      [@expandCollapse]="isExpanded ? 'expanded' : 'collapsed'"
+    >
+      <ul>
+        <li *ngFor="let item of detail.jobBullets">{{ item }}</li>
+      </ul>
+    </ng-container>
   </div>
   <br />
-  <!-- job skills -->
-  <!-- <div class="skill-wrapper">
+  <br />
+  <button
+    mat-button
+    class="mat-mdc-outlined-button"
+    style="width: 50%; align-self: center"
+    (click)="toggleDetails()"
+  >
+    {{ isExpanded ? "Show Less" : "Tell Me More" }}
+  </button>
+  <div mat-dialog-actions class="actions" align="end">
+    <button mat-icon-button (click)="closeDialog()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>
+
+<!-- job skills -->
+<!-- <div class="skill-wrapper">
     <div class="skill-title">soft skills</div>
     <div class="skill-row">
       <div class="skill-container" *ngFor="let skill of data.info.jobSkills">
@@ -34,9 +57,3 @@
       </div>
     </div>
   </div> -->
-  <div mat-dialog-actions class="actions" align="end">
-    <button mat-icon-button (click)="closeDialog()">
-      <mat-icon>close</mat-icon>
-    </button>
-  </div>
-</div>

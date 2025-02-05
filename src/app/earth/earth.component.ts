@@ -5,6 +5,12 @@ import {
   ViewChild,
   AfterViewInit,
 } from '@angular/core';
+import {
+  Router,
+  RouterOutlet,
+  RouterLink,
+  RouterLinkActive,
+} from '@angular/router';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -19,7 +25,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @Component({
   selector: 'app-earth',
   standalone: true,
-  imports: [MatDialogModule],
+  imports: [MatDialogModule, RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './earth.component.html',
   styleUrls: ['./earth.component.scss'],
 })
@@ -40,9 +46,9 @@ export class EarthComponent implements OnInit, AfterViewInit {
   private dialogOpen: boolean = false; // Flag to track dialog state
 
   // Zoom on-load parameters
-  private zoomDuration: number = 3; // Duration in seconds
+  private zoomDuration: number = 2; // Duration in seconds
   private startTime: number | null = null; // To track the start time of the zoom
-  private initialCameraZ: number = 5; // Starting z position
+  private initialCameraZ: number = 3; // Starting z position
   private targetCameraZ: number = 2; // Target z position (close to Earth)
 
   isVisible = false;
@@ -78,7 +84,7 @@ export class EarthComponent implements OnInit, AfterViewInit {
       // Check if the dialog is not already open
       this.dialogOpen = true; // change because open
       const dialogRef = this.dialog.open(EducationComponent, {
-        panelClass: 'dialog-wrapper',
+        panelClass: ['dialog-wrapper'],
       });
       // Reset dialogOpen to false when the dialog is closed
       dialogRef.afterClosed().subscribe(() => {
@@ -92,7 +98,7 @@ export class EarthComponent implements OnInit, AfterViewInit {
       "Would you like to download Gabe's resume?",
       'Download',
       {
-        duration: 10000,
+        duration: 6000,
       }
     );
     snackBarRef.onAction().subscribe(() => {
@@ -172,12 +178,15 @@ export class EarthComponent implements OnInit, AfterViewInit {
       0.1,
       1000
     );
-    this.camera.position.z = 20;
-    this.camera.position.y = 1;
+    this.camera.position.z = 50;
+    this.camera.position.y = 20;
 
     // Area
     // Controls
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+    // Disable vertical rotation by limiting the polar angle range
+    this.controls.minPolarAngle = Math.PI / 2.5; // Lock to horizontal (no upward tilt)
+    this.controls.maxPolarAngle = Math.PI / 3;
     this.controls.enableDamping = true; // Enable damping (inertia)
 
     // Earth
@@ -250,15 +259,13 @@ export class EarthComponent implements OnInit, AfterViewInit {
     }
 
     const elapsedTime = (currentTime - this.startTime) / 1000;
-
     if (elapsedTime < this.zoomDuration) {
       const t = elapsedTime / this.zoomDuration;
       this.camera.position.z =
         this.initialCameraZ + t * (this.targetCameraZ - this.initialCameraZ);
     } else {
-      this.camera.position.z = this.targetCameraZ;
       this.controls.minDistance = 2;
-      this.controls.maxDistance = 3;
+      this.controls.maxDistance = 5;
     }
 
     this.cloudsMesh.rotation.y += -0.001;

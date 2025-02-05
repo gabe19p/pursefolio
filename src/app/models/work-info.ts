@@ -1,6 +1,6 @@
 export interface JobDetail {
   jobDuty: string;
-  jobDetails: string[];
+  jobBullets: string[];
 }
 
 export interface WorkInfo {
@@ -8,6 +8,7 @@ export interface WorkInfo {
   jobCompany: string;
   jobLocation: string;
   jobDates: string;
+  jobDescription: string;
   jobDetails: JobDetail[];
   jobSkills: string[];
   image: string;

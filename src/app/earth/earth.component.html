@@ -2,8 +2,9 @@
 <div class="main-container">
   <div class="actions-bottom-wrapper" [class.fade-in]="isVisible">
     <div class="categories-wrapper">
-      <div class="category" (click)="openSnackBar()">resume</div>
-      <!-- <div class="category" (click)="openEducationDialog()">education</div> -->
+      <a class="category" routerLink="/earth">earth</a>
+      <a class="category" routerLink="/education">education</a>
+      <a class="category">projects</a>
     </div>
 
     <div class="links-wrapper">
@@ -42,4 +43,6 @@
   </div>
 
   <canvas #canvas> </canvas>
+
+  <router-outlet />
 </div>

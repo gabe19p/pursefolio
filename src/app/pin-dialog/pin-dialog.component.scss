@@ -6,9 +6,9 @@
   flex-direction: column;
   position: relative;
   padding: 30px;
-  max-width: 450px;
   z-index: 1;
   overflow: hidden;
+  transition: all 1s ease;
 }
 
 .actions {
@@ -28,7 +28,6 @@
 
 .job-title {
   font-size: 32px;
-  word-spacing: 500px;
   line-height: 1.01;
 }
 

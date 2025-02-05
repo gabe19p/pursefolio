@@ -19,4 +19,8 @@ body {
 .cdk-overlay-container .dialog-wrapper {
   box-shadow: 0px 0px 150px rgba(255, 255, 255, 0.1) !important;
   border-radius: 25px;
+  max-height: 90vh !important;
+  max-width: 60vw !important;
+  width: auto !important;
+  overflow: scroll !important;
 }
