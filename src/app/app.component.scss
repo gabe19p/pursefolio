@@ -1,6 +1,51 @@
-.wrap {
-  background-color: rgba($color: #000000, $alpha: 0.5);
+.navigation {
+  display: flex;
+}
+
+.sticky-bottom {
+  font-family: "Londrina Outline", sans-serif;
+  font-size: 24px;
+  color: white;
   width: 100vw;
-  height: 100vh;
-  z-index: 100;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  z-index: 3;
+}
+
+.pages-wrapper {
+  width: 80%;
+  display: flex;
+}
+.page {
+  height: 25px;
+  margin: 10px;
+  cursor: pointer;
+  transition: transform 200ms ease-in-out;
+}
+
+.links-wrapper {
+  display: flex;
+}
+.link {
+  width: 25px;
+  height: 25px;
+  margin: 10px;
+  transition: transform 200ms ease-in-out;
+}
+
+path {
+  fill: white;
+}
+
+a {
+  text-decoration: none; /* Removes the underline */
+  color: inherit; /* Inherits the color from the parent element */
+}
+
+.page:hover,
+.link:hover {
+  transform: scale(1.1);
 }

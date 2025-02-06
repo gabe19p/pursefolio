@@ -46,10 +46,10 @@ export class EarthComponent implements OnInit, AfterViewInit {
   private dialogOpen: boolean = false; // Flag to track dialog state
 
   // Zoom on-load parameters
-  private zoomDuration: number = 2; // Duration in seconds
+  private zoomDuration: number = 5; // Duration in seconds
   private startTime: number | null = null; // To track the start time of the zoom
-  private initialCameraZ: number = 3; // Starting z position
-  private targetCameraZ: number = 2; // Target z position (close to Earth)
+  private initialCameraZ: number = 1; // Starting z position
+  private targetCameraZ: number = 3; // Target z position (close to Earth)
 
   isVisible = false;
   isHidden = false; // used for the all black cover div
@@ -79,19 +79,19 @@ export class EarthComponent implements OnInit, AfterViewInit {
     }
   }
   // dialog for the education
-  openEducationDialog() {
-    if (!this.dialogOpen) {
-      // Check if the dialog is not already open
-      this.dialogOpen = true; // change because open
-      const dialogRef = this.dialog.open(EducationComponent, {
-        panelClass: ['dialog-wrapper'],
-      });
-      // Reset dialogOpen to false when the dialog is closed
-      dialogRef.afterClosed().subscribe(() => {
-        this.dialogOpen = false; // Reset the flag
-      });
-    }
-  }
+  // openEducationDialog() {
+  //   if (!this.dialogOpen) {
+  //     // Check if the dialog is not already open
+  //     this.dialogOpen = true; // change because open
+  //     const dialogRef = this.dialog.open(EducationComponent, {
+  //       panelClass: ['dialog-wrapper'],
+  //     });
+  //     // Reset dialogOpen to false when the dialog is closed
+  //     dialogRef.afterClosed().subscribe(() => {
+  //       this.dialogOpen = false; // Reset the flag
+  //     });
+  //   }
+  // }
   // snackbar for the resume
   openSnackBar(): void {
     const snackBarRef = this.snackBar.open(
@@ -284,7 +284,7 @@ export class EarthComponent implements OnInit, AfterViewInit {
     this.renderer.setPixelRatio(window.devicePixelRatio);
   }
 
-  getStarfield({ numStars = 1500 } = {}) {
+  getStarfield({ numStars = 5000 } = {}) {
     function randomSpherePoint() {
       const radius = Math.random() * 25 + 25;
       const u = Math.random();

@@ -1,42 +1,66 @@
-<!-- <div mat-dialog-content class="dialog-wrapper">
-  <div class="card-wrapper">
-    <div class="logo">
-      <img src="../../assets/education/sec+.png" alt="security plus logo" />
-      <div class="card-text">
-        <p class="card-title">CompTIA Security+</p>
-        <p class="year">valid until 2025</p>
+<!-- <div class="carousel">
+  <button class="carousel-btn left" (click)="prevSlide()">‹</button>
+
+  <div class="carousel-track">
+    <div class="card-wrapper">
+      <div class="logo">
+        <img src="../../assets/education/sec+.png" alt="Security Plus logo" />
+        <div class="card-text">
+          <p class="card-title">CompTIA Security+</p>
+          <p class="year">valid until 2025</p>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="card-wrapper">
-    <div class="logo">
-      <img
-        src="../../assets/education/bellevue.png"
-        alt="bellevue university logo"
-      />
-      <div class="card-text">
-        <p class="card-title">Bachelor of Science</p>
-        <p class="card-major">Web Development</p>
-        <p class="card-extra">Summa Cum Laude</p>
+
+    <div class="card-wrapper">
+      <div class="logo">
+        <img
+          src="../../assets/education/bellevue.png"
+          alt="Bellevue University logo"
+        />
+        <div class="card-text">
+          <p class="card-title">Bachelor of Science</p>
+          <p class="card-major">Web Development</p>
+          <p class="card-extra">Summa Cum Laude</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-wrapper">
+      <div class="logo">
+        <img src="../../assets/education/ccaf.png" alt="CCAF logo" />
+        <div class="card-text">
+          <p class="card-title">Associate Degree</p>
+          <p class="card-major">Business Administration</p>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="card-wrapper">
-    <div class="logo">
-      <img
-        src="../../assets/education/ccaf.png"
-        alt="community college of the air force logo"
-        style="width: 90%; height: 90%"
-      />
-      <div class="card-text">
-        <p class="card-title">Associate Degree</p>
-        <p class="card-major">Business Administration</p>
-      </div>
-    </div>
-  </div>
+  <button class="carousel-btn right" (click)="nextSlide()">›</button>
 </div> -->
+<div class="carousel">
+  <!-- Left Button -->
+  <button class="carousel-btn left" (click)="prevSlide()">‹</button>
 
-edu works not
+  <!-- Carousel Track -->
+  <div class="carousel-track" [style.transform]="getTrackTransform()">
+    <!-- Card Wrappers for each image -->
+    <div class="card-wrapper" *ngFor="let image of images">
+      <div class="logo">
+        <img
+          [src]="'../../assets/education/' + image.name"
+          alt="{{ image.alt }}"
+        />
+        <div class="card-text">
+          <p class="card-year">{{ image.year }}</p>
+          <p class="card-details">{{ image.details }}</p>
+          <p class="card-title">{{ image.title }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<a>resume</a>
+  <!-- Right Button -->
+  <button class="carousel-btn right" (click)="nextSlide()">›</button>
+</div>
