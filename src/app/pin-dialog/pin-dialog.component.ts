@@ -58,7 +58,7 @@ export class PinDialogComponent {
         this.dialogRef.updateSize('80vw', 'auto'); // Or adjust the width dynamically
       }, 200); // Small delay to allow smooth transition
     } else {
-      this.dialogRef.updateSize('60vw', 'auto'); // Resize back when collapsed
+      this.dialogRef.updateSize('40vw', 'auto'); // Resize back when collapsed
     }
   }
 }

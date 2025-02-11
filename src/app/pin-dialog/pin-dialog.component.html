@@ -4,47 +4,52 @@
     [src]="data.info.image"
     alt="location specific patch"
   />
-  <div class="job-title">{{ data.info.jobTitle }}</div>
-  <br />
-  <!-- job location and dates -->
-  <div class="header-wrapper">
-    <div class="location-wrapper">
-      <div class="job-company">{{ data.info.jobCompany }}</div>
-      <div class="job-location">{{ data.info.jobLocation }}</div>
+  <div class="dialog-content">
+    <div class="job-title">{{ data.info.jobTitle }}</div>
+
+    <!-- job location and dates -->
+    <div class="header-wrapper">
+      <div class="location-wrapper">
+        <div class="job-company">{{ data.info.jobCompany }}</div>
+        <div class="job-location">{{ data.info.jobLocation }}</div>
+      </div>
+      <div class="date-wrapper">
+        <div class="job-dates">{{ data.info.jobDates }}</div>
+      </div>
     </div>
-    <div class="date-wrapper">
-      <div class="job-dates">{{ data.info.jobDates }}</div>
+
+    <!-- job details & duties -->
+    <div>{{ data.info.jobDescription }}</div>
+
+    <div class="text-wrapper">
+      <div
+        class="job-details-wrapper"
+        *ngFor="let detail of data.info.jobDetails"
+      >
+        <div class="job-duty">+ {{ detail.jobDuty }}</div>
+        <ng-container
+          *ngIf="isExpanded"
+          [@expandCollapse]="isExpanded ? 'expanded' : 'collapsed'"
+        >
+          <ul>
+            <li *ngFor="let item of detail.jobBullets">{{ item }}</li>
+          </ul>
+        </ng-container>
+      </div>
     </div>
-  </div>
-  <br />
-  <!-- job details & duties -->
-  <div>{{ data.info.jobDescription }}</div>
-  <br />
-  <div class="job-details-wrapper" *ngFor="let detail of data.info.jobDetails">
-    <div class="job-duty">+ {{ detail.jobDuty }}</div>
-    <ng-container
-      *ngIf="isExpanded"
-      [@expandCollapse]="isExpanded ? 'expanded' : 'collapsed'"
+    <button
+      mat-button
+      class="mat-mdc-outlined-button"
+      style="width: 50%; align-self: center"
+      (click)="toggleDetails()"
     >
-      <ul>
-        <li *ngFor="let item of detail.jobBullets">{{ item }}</li>
-      </ul>
-    </ng-container>
-  </div>
-  <br />
-  <br />
-  <button
-    mat-button
-    class="mat-mdc-outlined-button"
-    style="width: 50%; align-self: center"
-    (click)="toggleDetails()"
-  >
-    {{ isExpanded ? "Show Less" : "Tell Me More" }}
-  </button>
-  <div mat-dialog-actions class="actions" align="end">
-    <button mat-icon-button (click)="closeDialog()">
-      <mat-icon>close</mat-icon>
+      {{ isExpanded ? "Show Less" : "Tell Me More" }}
     </button>
+    <div mat-dialog-actions class="actions" align="end">
+      <button mat-icon-button (click)="closeDialog()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
   </div>
 </div>
 

@@ -11,6 +11,37 @@
   transition: all 1s ease;
 }
 
+/* Styles for the background image */
+.background-image {
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 1);
+  position: absolute; /* Position the image absolutely within the dialog */
+  top: 50%; /* Center the image vertically */
+  left: 50%; /* Center the image horizontally */
+  width: 100%; /* Make the image cover the dialog */
+  height: 100%; /* Make the image cover the dialog */
+  object-fit: cover; /* Ensure the image covers without distorting */
+  opacity: 0.08; /* Set the opacity to 5% */
+  transform: translate(
+    -50%,
+    -50%
+  ); /* Center the image by adjusting its position */
+  z-index: 0; /* Make sure it's behind the content */
+}
+
+.dialog-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+  overflow-y: auto;
+  z-index: 3;
+  gap: 15px;
+}
+
+.text-wrapper {
+  padding-right: 30px;
+}
+
 .actions {
   position: absolute;
   top: 0;
@@ -58,22 +89,6 @@ ul {
   margin: 0;
   font-family: "Poiret One", sans-serif !important;
   font-weight: 200;
-}
-
-/* Styles for the background image */
-.background-image {
-  position: absolute; /* Position the image absolutely within the dialog */
-  top: 50%; /* Center the image vertically */
-  left: 50%; /* Center the image horizontally */
-  width: 100%; /* Make the image cover the dialog */
-  height: 100%; /* Make the image cover the dialog */
-  object-fit: cover; /* Ensure the image covers without distorting */
-  opacity: 0.08; /* Set the opacity to 5% */
-  transform: translate(
-    -50%,
-    -50%
-  ); /* Center the image by adjusting its position */
-  z-index: 0; /* Make sure it's behind the content */
 }
 
 button {
