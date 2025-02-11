@@ -1,44 +1,3 @@
-<!-- <div class="carousel">
-  <button class="carousel-btn left" (click)="prevSlide()">‹</button>
-
-  <div class="carousel-track">
-    <div class="card-wrapper">
-      <div class="logo">
-        <img src="../../assets/education/sec+.png" alt="Security Plus logo" />
-        <div class="card-text">
-          <p class="card-title">CompTIA Security+</p>
-          <p class="year">valid until 2025</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="card-wrapper">
-      <div class="logo">
-        <img
-          src="../../assets/education/bellevue.png"
-          alt="Bellevue University logo"
-        />
-        <div class="card-text">
-          <p class="card-title">Bachelor of Science</p>
-          <p class="card-major">Web Development</p>
-          <p class="card-extra">Summa Cum Laude</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="card-wrapper">
-      <div class="logo">
-        <img src="../../assets/education/ccaf.png" alt="CCAF logo" />
-        <div class="card-text">
-          <p class="card-title">Associate Degree</p>
-          <p class="card-major">Business Administration</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <button class="carousel-btn right" (click)="nextSlide()">›</button>
-</div> -->
 <div class="carousel">
   <!-- Left Button -->
   <button class="carousel-btn left" (click)="prevSlide()">‹</button>
@@ -51,6 +10,8 @@
         <img
           [src]="'../../assets/education/' + image.name"
           alt="{{ image.alt }}"
+          [style.backgroundSize]="'contain'"
+          [style.backgroundRepeat]="'no-repeat'"
         />
         <div class="card-text">
           <p class="card-year">{{ image.year }}</p>

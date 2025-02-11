@@ -1,4 +1,10 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  ViewChild,
+  Renderer2,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -9,6 +15,17 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./education.component.scss'],
 })
 export class EducationComponent {
+  // implements AfterViewInit
+  // @ViewChild('card') track!: ElementRef;
+
+  // ngAfterViewInit(): void {
+  //   setTimeout(() => {
+  //     const cardWrappers = document.querySelectorAll('.card-wrapper');
+  //     cardWrappers.forEach((card: HTMLElement) => {
+  //       card.classList.add('fade-in-card');
+  //     });
+  //   }, 1);
+  // }
   currentIndex: number = 0; // Start from the first slide
   images = [
     {
@@ -42,8 +59,7 @@ export class EducationComponent {
   ];
 
   // Fixed card size and gap
-  minCardWidth = 275; // in px (fixed width of cards)
-  gapSize = 25; // Space between items (in px)
+  minCardWidth = 500; // in px (fixed width of cards)
 
   // Previous slide
   prevSlide() {
@@ -58,8 +74,7 @@ export class EducationComponent {
 
   // This function will now return a fixed translation distance for consistent movement
   getTrackTransform() {
-    const totalTranslate =
-      this.currentIndex * (this.minCardWidth + this.gapSize);
+    const totalTranslate = this.currentIndex * this.minCardWidth;
     return `translateX(-${totalTranslate}px)`; // Move by the fixed distance
   }
 }
