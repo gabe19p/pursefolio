@@ -9,6 +9,7 @@ import {
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { EducationComponent } from './education/education.component';
+import { ProjectsComponent } from './projects/projects.component';
 
 @Component({
   selector: 'app-root',
@@ -34,6 +35,18 @@ export class AppComponent {
       // Reset dialogOpen to false when the dialog is closed
       dialogRef.afterClosed().subscribe(() => {
         this.dialogOpen = false; // Reset the flag
+      });
+    }
+  }
+
+  openProjectsDialog() {
+    if (!this.dialogOpen) {
+      this.dialogOpen = true;
+      const dialogRef = this.dialog.open(ProjectsComponent, {
+        panelClass: ['education-dialog'],
+      });
+      dialogRef.afterClosed().subscribe(() => {
+        this.dialogOpen = false;
       });
     }
   }
